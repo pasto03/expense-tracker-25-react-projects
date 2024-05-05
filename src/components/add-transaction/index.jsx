@@ -1,10 +1,11 @@
-import { FormControl, FormLabel, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Input, RadioGroup, Radio, ModalFooter, Button } from "@chakra-ui/react";
+import { FormControl, FormLabel, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Input, RadioGroup, Radio, ModalFooter, Button, Select } from "@chakra-ui/react";
 import { useContext } from "react";
 import { GlobalContext } from "../../context";
+import TransactionOptions from "./options";
 
 export default function TransactionForm({ onClose, isOpen }) {
 
-    const { formData, setFormData, value, setValue, handleFormSubmit } = useContext(GlobalContext);
+    const { formData, setFormData, value, setValue, category, setCategory, handleFormSubmit } = useContext(GlobalContext);
 
     function handleFormChange(event) {
         setFormData({
@@ -43,12 +44,24 @@ export default function TransactionForm({ onClose, isOpen }) {
                             onChange={handleFormChange}
                         />
                     </FormControl>
+                    <FormControl mt={4}>
+                        <Select 
+                        onChange={(event) => {
+                            setCategory(event.target.value);
+                            handleFormChange(event);
+                        }}
+                        name="category"
+                        placeholder={`Select ${value === "income" ? "Income" : "Expense"} Type`}>
+                            <TransactionOptions transactionType={value} onChange={handleFormChange} />
+                        </Select>
+                    </FormControl>
                     <RadioGroup mt="5" value={value} onChange={setValue}>
                         <Radio
                             checked={formData.type === "income"}
-                            value="income" colorScheme="blue" name="type" onChange={handleFormChange}>Income</Radio>
+                            value="income" colorScheme="blue" name="type" onChange={handleFormChange}
+                            >Income</Radio>
                         <Radio
-                            checked={formData.type === "income"}
+                            checked={formData.type === "expense"}
                             value="expense" colorScheme="red" name="type" onChange={handleFormChange}>Expense</Radio>
                     </RadioGroup>
                 </ModalBody>

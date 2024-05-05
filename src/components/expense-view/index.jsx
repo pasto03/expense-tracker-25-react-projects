@@ -19,11 +19,12 @@ export default function ExpenseView({ type, data }) {
                     alignItems={"center"}
                     border={"1px solid"}
                     borderColor={type === "expense" ? "red.100" : "blue.100"}
-                    p={"4"}
+                    p={"2"}
                     borderRadius={"8"}
                 >
-                    <Flex alignItems={"center"} justifyContent={"center"}>
-                        <Text ml={"3"} fontWeight="bold" color={"gray.600"}>{item.description}</Text>
+                    <Flex direction={"column"} overflow={"hidden"}>
+                        <Text ml={"3"} fontWeight="bold" color={"gray.600"} textAlign={"left"} overflow={"hidden"} whiteSpace={"nowrap"} textOverflow={"ellipsis"} maxWidth={"150px"}>{item.description}</Text>
+                        <Text ml={"3"} fontWeight="semibold" color={"blue.600"}  textAlign={"left"}>{item.category}</Text>
                     </Flex>
 
                     <Text>$ {item.amount}</Text>

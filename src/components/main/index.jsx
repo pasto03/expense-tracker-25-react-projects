@@ -6,7 +6,7 @@ import { GlobalContext } from "../../context";
 
 export default function Main() {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { totalExpense, setTotalExpense, totalIncome, setTotalIncome, allTransactions } =
+    const { emptyFormData, setFormData, totalExpense, setTotalExpense, totalIncome, setTotalIncome, allTransactions } =
         useContext(GlobalContext);
 
     useEffect(() => {
@@ -33,7 +33,9 @@ export default function Main() {
                     Expense Tracker
                 </Heading>
                 <Flex alignItems={"center"}>
-                    <Button onClick={onOpen} bg={"blue.300"} color={"black"} ml={"4"}>
+                    <Button
+                        onClick={() => { onOpen(); setFormData(emptyFormData); }}
+                        bg={"blue.300"} color={"black"} ml={"4"}>
                         Add New Transaction
                     </Button>
                 </Flex>
